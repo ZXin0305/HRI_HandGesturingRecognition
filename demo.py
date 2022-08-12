@@ -943,7 +943,7 @@ def main():
         elif args.mode == 3:
             rospy.init_node('human_pose', anonymous=True)
             camera_topic = args.camera_topic
-            frame_provider = CameraReader(args.camera_topic, cfg, args.internal_matrix)
+            frame_provider = CameraReader(camera_topic, cfg, args.internal_matrix)
             run_demo(model, refine_model, action_model, frame_provider, cfg, device)
             
         elif args.mode == 4:
