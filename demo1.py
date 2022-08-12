@@ -1150,7 +1150,7 @@ def run_demo_with_hand(model, refine_model, frame_provider, cfg, device):
                                     rencoded_cropped_depth_img = lib.cget_cropped_depth()
                                     rtmp_depth = ctypes.string_at(rencoded_cropped_depth_img, imgattr_para[0] * imgattr_para[1])
                                     rnparr_depth = np.frombuffer(rtmp_depth)
-                                    cropped_rhand_depth = cv2.imdecode(rnparr_depth, cv2.IMREAD_GRAYSCALE)                                    
+                                    cropped_rhand_depth = cv2.imdecode(rnparr_depth, cv2.IMREAD_GRAYSCALE)                                
 
                                     # draw hand bounding box
                                     lib.cget_rectangle_points(points_arr)
@@ -1160,6 +1160,7 @@ def run_demo_with_hand(model, refine_model, frame_provider, cfg, device):
                                     cv2.line(img, (points_arr[6], points_arr[7]), (points_arr[0], points_arr[1]), (0, 255, 0), 3)                                
                                     rhand_is_detected = True
                             
+                
                             """
                             (1) img transform  --> to tensor
                             (2) img to cuda
@@ -1180,7 +1181,7 @@ def run_demo_with_hand(model, refine_model, frame_provider, cfg, device):
                         
                     id_with_action = [[0, 0], [1, 1],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]    
                         
-                        # 姿态的发布
+                    # 姿态的发布
                     human_list = HumanList()
                     # new_score = copy.deepcopy(new_pred_bodys_3d[:,:,3])[:,:,np.newaxis]
                     # current_frame_human = np.concatenate([current_frame_human,new_score], axis=2)
@@ -1762,7 +1763,7 @@ def main():
         elif args.mode == 4:
             rospy.init_node('human_pose', anonymous=True)
             camera_topic = args.camera_topic
-            frame_provider = CameraReader(args.camera_topic, cfg, args.internal_matrix)
+            frame_provider = CameraReader(camera_topic, cfg, args.internal_matrix)
             run_demo_with_hand(model, refine_model, frame_provider, cfg, device)
 
         elif args.mode == 5:
